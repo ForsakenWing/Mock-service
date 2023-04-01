@@ -6,9 +6,10 @@ name = "pypi"
 [packages]
 fastapi = "*"
 uvicorn = {extras = ["standard"], version = "*"}
+python-dotenv = "*"
 
 [scripts]
-prod = "uvicorn src.main:app --host 0.0.0.0 --port 80"
+dev = "uvicorn src.main:app --host 0.0.0.0 --port 80"
 
 [dev-packages]
 

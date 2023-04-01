@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Request
-from json import loads
+from json import loads, JSONDecodeError
+import logging
 
 app = FastAPI()
 
@@ -15,7 +16,11 @@ async def echo_reply(request: Request):
 @app.get('/request')
 @app.post('/request')
 async def request_parser(request: Request):
-    body = loads(await request.body())
+    body = {}
+    try:
+        body = loads(await request.body())
+    except JSONDecodeError:
+        logging.info("Body is empty")
     return {
         "headers": request.headers,
         "cookies": request.cookies,
