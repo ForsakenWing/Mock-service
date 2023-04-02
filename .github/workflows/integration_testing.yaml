@@ -3,8 +3,6 @@ on:
   pull_request:
     paths:
       - '**.py'
-    paths-ignore:
-      - 'tests/**'
     branches:
       - dev/**
   workflow_call:

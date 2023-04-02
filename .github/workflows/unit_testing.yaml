@@ -2,11 +2,10 @@ name: unit_testing
 on:
   pull_request:
     paths:
-      - '**.py'
-    paths-ignore:
-      - 'tests/**'
+      - 'src/**.py'
     branches:
       - dev/**
+  push:
   workflow_call:
 
 jobs:

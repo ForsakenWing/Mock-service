@@ -1,6 +1,8 @@
 name: CI to publish docker image to dockerhub registry
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+  workflow_call:
 
 jobs:
   build:
