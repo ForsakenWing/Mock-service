@@ -4,15 +4,23 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-fastapi = "*"
+fastapi = "==0.91.0"
 uvicorn = {extras = ["standard"], version = "*"}
-python-dotenv = "*"
+python-dotenv = "==1.0.0"
+sniffio = "==1.3.0"
+httptools = "==0.5.0"
+anyio = "==3.6.2"
+h11 = "==0.14.0"
+starlette = "==0.24"
+click = "==8.1.3"
+pyyaml = "==6.0"
+requests = "*"
 
 [scripts]
-dev = "uvicorn src.main:app --host 0.0.0.0 --port 80"
+dev = "uvicorn src.main:app --host 0.0.0.0 --port 5555"
 
 [dev-packages]
 
 [requires]
-python_version = "3.11"
-python_full_version = "3.11.0"
+python_version = "3.11.2"
+python_full_version = "3.11.2"

@@ -1,0 +1,45 @@
+name: integration testing
+on:
+  workflow_call:
+    secrets:
+      username:
+        required: true
+      password:
+        required: true
+  pull_request:
+    paths:
+      - '**.py'
+    branches:
+      - dev/**
+  workflow_dispatch:
+
+jobs:
+  deploying:
+    uses: ./.github/workflows/build_and_deploy.yml
+    secrets:
+      username: ${{ secrets.username }}
+      password: ${{ secrets.password }}
+  integration_testing:
+    needs: deploying
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11"]
+    services:
+      echoService:
+        image: spartkar/public_pets:mock-service
+        options: >-
+          -p 5555:5555
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+            python -m pip install --upgrade pip
+            pip install pytest requests
+      - name: Testing the code using integration_tests
+        run: |
+            pytest tests/integration_tests/

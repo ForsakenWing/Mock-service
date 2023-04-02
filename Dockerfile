@@ -1,4 +1,4 @@
-FROM python:3.11-alpine3.16 as base
+FROM python:3.11.2-alpine3.16 as base
 
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
@@ -27,9 +27,10 @@ ENV PATH="/.venv/bin:$PATH"
 RUN adduser -h appuser -D appuser
 WORKDIR /home/appuser
 USER appuser
+EXPOSE 5555
 
 # Install application into container
-COPY ./src ./src
+COPY src ./src
 
 ENTRYPOINT ["python", "-m", "uvicorn"]
-CMD ["src.main:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["src.main:app", "--host", "0.0.0.0", "--port", "5555"]
