@@ -2,8 +2,6 @@ name: integration testing
 on:
   workflow_call:
     secrets:
-      username:
-        required: true
       password:
         required: true
   pull_request:
@@ -17,9 +15,11 @@ jobs:
   deploying:
     uses: ./.github/workflows/build_and_deploy.yml
     secrets:
-      username: ${{ secrets.username }}
+      username: ${docker_username}
       password: ${{ secrets.password }}
   integration_testing:
+    env:
+      docker_username: ${{ secrets.username }}
     needs: deploying
     runs-on: ubuntu-latest
     strategy:
@@ -27,7 +27,7 @@ jobs:
         python-version: ["3.11"]
     services:
       echoService:
-        image: spartkar/public_pets:mock-service
+        image: ${docker_username}/public_pets:mock-service
         options: >-
           -p 5555:5555
     steps:

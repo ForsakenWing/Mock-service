@@ -3,6 +3,8 @@ on:
   pull_request:
     branches:
       - master
+env:
+  docker_username: ${{ secrets.DOCKER_HUB_USERNAME }}
 jobs:
   python_linter:
     uses: ./.github/workflows/pylint.yaml
@@ -11,7 +13,6 @@ jobs:
   integration_testing:
     uses: ./.github/workflows/integration_testing.yaml
     secrets:
-      username: ${{ secrets.DOCKER_HUB_USERNAME }}
       password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
 
