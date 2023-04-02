@@ -18,3 +18,4 @@
 - [x] Rest service echo reply or / request parses
 - [x] Docker image
 - [x] GitHub Actions docker build / deploy
+- [x] Linting python files on pull requests
