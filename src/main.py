@@ -1,6 +1,7 @@
-from fastapi import FastAPI, Request
 from json import loads, JSONDecodeError
 import logging
+
+from fastapi import FastAPI, Request
 
 app = FastAPI()
 
@@ -27,4 +28,3 @@ async def request_parser(request: Request):
         "method": request.method,
         "body": body
     }
-
