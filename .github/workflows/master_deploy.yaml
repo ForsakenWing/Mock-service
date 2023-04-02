@@ -8,9 +8,11 @@ jobs:
     uses: ./.github/workflows/pylint.yaml
   unit_testing:
     uses: ./.github/workflows/unit_testing.yaml
-  building_and_running_app:
-    uses: ./.github/workflows/build_and_run.yaml
   integration_testing:
     uses: ./.github/workflows/integration_testing.yaml
+    secrets:
+      username: ${{ secrets.DOCKER_HUB_USERNAME }}
+      password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
 
 
