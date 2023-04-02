@@ -22,8 +22,9 @@ jobs:
       - name: Install dependencies
         run: |
             python -m pip install --upgrade pip
-            pip install -r requirements.txt
             pip install pytest
-      - name: Testing the code using unit-tests
+      - name: Building and running app
+        uses: ./.github/workflows/build_and_run.yaml
+      - name: Testing the code using integration_tests
         run: |
             pytest tests/integration_tests/
