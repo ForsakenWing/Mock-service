@@ -6,6 +6,8 @@ on:
     branches:
       - dev/**
   push:
+    paths:
+      - 'src/**.py'
   workflow_call:
 
 jobs:
