@@ -2,6 +2,9 @@ name: Setting global vars
 
 on:
   workflow_call:
+    outputs:
+      python_version:
+        value: ${{ jobs.variables_initialization.outputs.python_version }}
 
 env:
   python_version: 3.11
@@ -9,9 +12,13 @@ env:
 jobs:
   variables_initialization:
     runs-on: ubuntu-latest
+    outputs:
+      python_version: ${{ steps.initializer.outputs.python_version }}
     steps:
       - id: initializer
         run: |
-          echo "python_version=${{ env.python_version }}" >> "$GITHUB_OUTPUT"
-    outputs:
-      python_version: ${{ steps.initializer.outputs.python_version }}
+          echo "python_version=${{ env.python_version }}" >> $GITHUB_OUTPUT
+      - name: Print output
+        run: |
+          echo "python_version: ${{ steps.initializer.outputs.python_version }}"
+

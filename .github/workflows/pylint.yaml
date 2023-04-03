@@ -9,7 +9,7 @@ on:
     inputs:
       python_version:
         required: true
-        type: number
+        type: string
 jobs:
   linting_python_code:
     runs-on: ubuntu-latest

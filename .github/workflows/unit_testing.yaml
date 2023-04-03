@@ -12,7 +12,7 @@ on:
     inputs:
       python_version:
         required: true
-        type: number
+        type: string
 
 jobs:
   unit_testing:
