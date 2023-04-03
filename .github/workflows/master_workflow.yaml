@@ -1,0 +1,48 @@
+name: Pipeline to deploy + merge master branch
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  variables:
+    uses: ./.github/workflows/__shared_vars.yaml
+  python_linter:
+    needs: variables
+    uses: ./.github/workflows/reusable_pylint.yaml
+    with:
+      python_version: ${{ needs.variables.outputs.python_version }}
+  unit_testing:
+    needs:
+      - variables
+      - python_linter
+    uses: ./.github/workflows/reusable_unit_testing.yaml
+    with:
+      python_version: ${{ needs.variables.outputs.python_version }}
+  integration_testing:
+    needs:
+      - variables
+      - python_linter
+      - unit_testing
+    uses: ./.github/workflows/reusable_integration_testing.yaml
+    with:
+      python_version: ${{ needs.variables.outputs.python_version }}
+    secrets:
+      username: ${{ secrets.DOCKER_HUB_USERNAME }}
+  deploy:
+    needs:
+      - variables
+      - python_linter
+      - unit_testing
+      - integration_testing
+    uses: ./.github/workflows/reusable_build_and_deploy.yml
+    secrets:
+      username: ${{ secrets.DOCKER_HUB_USERNAME }}
+      password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+
+
