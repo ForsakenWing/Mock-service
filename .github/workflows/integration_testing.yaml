@@ -2,8 +2,12 @@ name: integration testing
 on:
   workflow_call:
     secrets:
-      password:
+      username:
         required: true
+    inputs:
+      python_version:
+        required: true
+        type: number
   pull_request:
     paths:
       - '**.py'
@@ -12,30 +16,17 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploying:
-    uses: ./.github/workflows/build_and_deploy.yml
-    secrets:
-      username: ${docker_username}
-      password: ${{ secrets.password }}
   integration_testing:
-    env:
-      docker_username: ${{ secrets.username }}
-    needs: deploying
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.11"]
-    services:
-      echoService:
-        image: ${docker_username}/public_pets:mock-service
-        options: >-
-          -p 5555:5555
     steps:
       - uses: actions/checkout@v3
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python ${{ inputs.python_version }}
         uses: actions/setup-python@v3
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: ${{ inputs.python_version }}
+      - name: Running service
+        run: |
+            docker run -p 5555:5555 -d ${{ secrets.username }}/public_pets:mock-service
       - name: Install dependencies
         run: |
             python -m pip install --upgrade pip

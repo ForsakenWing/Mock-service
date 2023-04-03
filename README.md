@@ -11,7 +11,6 @@
 - add renovate to bump major / minor / patch / versions
 - workflow with linting python and terraform files
 - workflow for code-analyzing using AI
-- unit / integration testing workflow
 
 ### Done
 
@@ -19,3 +18,4 @@
 - [x] Docker image
 - [x] GitHub Actions docker build / deploy
 - [x] Linting python files on pull requests
+- [x] unit / integration testing workflow

@@ -1,0 +1,17 @@
+name: Setting global vars
+
+on:
+  workflow_call:
+
+env:
+  python_version: 3.11
+
+jobs:
+  variables_initialization:
+    runs-on: ubuntu-latest
+    steps:
+      - id: initializer
+        run: |
+          echo "python_version=${{ env.python_version }}" >> "$GITHUB_OUTPUT"
+    outputs:
+      python_version: ${{ steps.initializer.outputs.python_version }}

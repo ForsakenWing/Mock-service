@@ -3,17 +3,39 @@ on:
   pull_request:
     branches:
       - master
-env:
-  docker_username: ${{ secrets.DOCKER_HUB_USERNAME }}
+
 jobs:
+  variables:
+    uses: ./.github/workflows/__shared_vars.yaml
   python_linter:
-    uses: ./.github/workflows/pylint.yaml
-  unit_testing:
-    uses: ./.github/workflows/unit_testing.yaml
-  integration_testing:
-    uses: ./.github/workflows/integration_testing.yaml
+    needs: variables
+    steps:
+        run: echo "::notice:: Python is ${{ needs.variables.outputs.python_version }}"
+#    uses: ./.github/workflows/pylint.yaml
+#    with:
+#      python_version: ${{ needs.variables.outputs.python_version }}
+  deploying_docker_image:
+    uses: ./.github/workflows/build_and_deploy.yml
     secrets:
       password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      username: ${{ secrets.DOCKER_HUB_USERNAME }}
+  unit_testing:
+    needs:
+      - variables
+      - python_linter
+    uses: ./.github/workflows/unit_testing.yaml
+    with:
+      python_version: ${{ needs.variables.outputs.python_version }}
+  integration_testing:
+    needs:
+      - variables
+      - python_linter
+      - deploying_docker_image
+    uses: ./.github/workflows/integration_testing.yaml
+    with:
+      python_version: ${{ needs.variables.outputs.python_version }}
+    secrets:
+      username: ${{ secrets.DOCKER_HUB_USERNAME }}
 
 
 
