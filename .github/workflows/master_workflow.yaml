@@ -1,12 +1,8 @@
-name: Pipeline to deploy + merge master branch
+name: Auto deploy + merge
 on:
   pull_request:
     branches:
       - master
-  push:
-    branches:
-      - master
-  workflow_dispatch:
 
 jobs:
   variables:
@@ -43,6 +39,14 @@ jobs:
     secrets:
       username: ${{ secrets.DOCKER_HUB_USERNAME }}
       password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+  merge:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Auto merging pull request
+        run: gh pr merge --auto
 
 
 
