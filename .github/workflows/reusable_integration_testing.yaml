@@ -1,4 +1,4 @@
-name: integration testing
+name: Integration testing
 on:
   workflow_call:
     secrets:
@@ -8,12 +8,10 @@ on:
       python_version:
         required: true
         type: string
-  pull_request:
+        default: 3.11
+  push:
     paths:
       - '**.py'
-    branches:
-      - dev/**
-  workflow_dispatch:
 
 jobs:
   integration_testing:

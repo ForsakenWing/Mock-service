@@ -1,18 +1,14 @@
-name: unit_testing
+name: Unit testing
 on:
-  pull_request:
-    paths:
-      - 'src/**.py'
-    branches:
-      - dev/**
   push:
     paths:
-      - 'src/**.py'
+      - '**.py'
   workflow_call:
     inputs:
       python_version:
         required: true
         type: string
+        default: 3.11
 
 jobs:
   unit_testing:
