@@ -1,15 +1,14 @@
 name: pylint
 on:
-  pull_request:
+  push:
     paths:
       - '**.py'
-    branches:
-      - dev/**
   workflow_call:
     inputs:
       python_version:
         required: true
         type: string
+        default: 3.11
 jobs:
   linting_python_code:
     runs-on: ubuntu-latest
