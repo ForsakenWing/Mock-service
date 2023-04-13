@@ -16,6 +16,7 @@
 
 - [x] Rest service echo reply or / request parses
 - [x] Docker image
-- [x] GitHub Actions docker build / deploy
-- [x] Linting python files on pull requests
+- [x] GitHub Actions docker build / deploy image to dockerhub
+- [x] Linting python files in workflow
 - [x] unit / integration testing workflow
+- [x] Auto merging when pull requests to master is triggered (With all checks / testing indeed)
