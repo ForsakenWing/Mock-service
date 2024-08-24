@@ -7,7 +7,7 @@ on:
         value: ${{ jobs.variables_initialization.outputs.python_version }}
 
 env:
-  python_version: 3.11
+  python_version: '3.11'
 
 jobs:
   variables_initialization:
@@ -21,4 +21,3 @@ jobs:
       - name: Print output
         run: |
           echo "python_version: ${{ steps.initializer.outputs.python_version }}"
-

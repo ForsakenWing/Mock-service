@@ -52,6 +52,3 @@ jobs:
         run: gh pr merge ${{ github.head_ref }} --auto --squash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-
-
