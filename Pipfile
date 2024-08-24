@@ -15,11 +15,13 @@ starlette = "==0.24"
 click = "==8.1.3"
 pyyaml = "==6.0"
 requests = "*"
+fastapi-cli = "*"
 
 [scripts]
 dev = "uvicorn src.main:app --host 0.0.0.0 --port 5555"
 
 [dev-packages]
+fastapi = {extras = ["standard"], version = "*"}
 
 [requires]
 python_version = "3.11.2"

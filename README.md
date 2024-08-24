@@ -11,6 +11,7 @@
 - add renovate to bump major / minor / patch / versions
 - workflow with linting python and terraform files
 - workflow for code-analyzing using AI
+- instrument browser monitoring for templated html pages
 
 ### Done
 
